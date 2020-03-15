@@ -7,10 +7,11 @@
 </head>
 <body>
 
-<h2 style="text-align: center">Nav</h2>
+<h2 style="text-align: center">APPs</h2>
 
 
 <ul class="nav nav-pills nav-stacked">
+    <li role="presentation"><a id="ncov" href="#">> 疫情地图</a></li>
     <li role="presentation"><a id="reminder" href="#">> Apple 备忘录</a></li>
     <li role="presentation"><a id="wechat" href="#">> 微信</a></li>
     <li role="presentation"><a id="gxd" href="#">> GXD</a></li>
@@ -42,6 +43,9 @@
     };
     document.getElementById('weread').onclick = function () {
         ipcRenderer.send('asynchronous-message', 'open weread');
+    };
+    document.getElementById('ncov').onclick = function () {
+        ipcRenderer.send('asynchronous-message', 'open ncov');
     };
 
 </script>

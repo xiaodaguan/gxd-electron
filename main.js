@@ -144,4 +144,14 @@ ipcMain.on('asynchronous-message', (event, arg) => {
         win.maximize();
     }
 
+    if (arg === 'open ncov') {
+        var win = new BrowserWindow({
+            width: 600,
+            height: 1000,
+            webPreferences: {
+                nodeIntegration: true
+            }
+        });
+        win.loadURL("https://ncov.dxy.cn/ncovh5/view/pneumonia");
+    }
 });
