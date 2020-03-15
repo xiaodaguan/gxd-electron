@@ -1,6 +1,15 @@
-const { app, BrowserWindow } = require('electron')
+const {
+    app,
+    BrowserWindow
+} = require('electron');
 
-function createWindow () {
+const electron = require('electron');
+const dialog = electron.dialog;
+const globalShortcut = electron.globalShortcut;
+
+
+
+function createWindow() {
     // 创建浏览器窗口
     const win = new BrowserWindow({
         width: 800,
@@ -8,10 +17,13 @@ function createWindow () {
         webPreferences: {
             nodeIntegration: true
         }
-    })
-
+    });
     // 并且为你的应用加载index.html
-    win.loadFile('index.html')
+    // win.loadFile('index.html');
+
+    win.maximize();
+
+    win.loadURL("https://www.icloud.com/notes/");
 
     // 打开开发者工具
     win.webContents.openDevTools()
@@ -20,7 +32,7 @@ function createWindow () {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // 部分 API 在 ready 事件触发后才能使用。
-app.whenReady().then(createWindow)
+app.whenReady().then(createWindow);
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
@@ -29,7 +41,7 @@ app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') {
         app.quit()
     }
-})
+});
 
 app.on('activate', () => {
     // 在macOS上，当单击dock图标并且没有其他窗口打开时，
@@ -37,7 +49,23 @@ app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) {
         createWindow()
     }
-})
+});
+
+
+app.on('ready', function () {
+    globalShortcut.register('F12', function () {
+        dialog.showMessageBox({
+            type: 'info',
+            message: '成功!',
+            detail: '你按下了一个全局注册的快捷键绑定.',
+            buttons: ['好的']
+        })
+    })
+});
+
+app.on('will-quit', function () {
+    globalShortcut.unregisterAll()
+});
 
 // In this file you can include the rest of your app's specific main process
 // code. 也可以拆分成几个文件，然后用 require 导入。
