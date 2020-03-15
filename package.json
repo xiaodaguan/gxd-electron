@@ -1,15 +1,50 @@
 {
-  "name": "gxd-electron",
+  "name": "gxd-pannel",
   "version": "1.0.0",
   "description": "electron",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:linux": "node_modules/.bin/electron-builder -l",
+    "build:windows": "node_modules/.bin/electron-builder -w",
+    "build:mac": "node_modules/.bin/electron-builder -m"
   },
   "author": "gxd",
   "license": "ISC",
   "devDependencies": {
     "electron": "^8.1.1"
+  },
+  "dependencies": {
+    "bootstrap": "^3.4.1"
+  },
+  "build": {
+    "win": {
+      "icon": "icon.png",
+      "target": [
+        "nsis"
+      ]
+    },
+    "nsis": {
+      "allowToChangeInstallationDirectory": true,
+      "oneClick": false,
+      "menuCategory": true,
+      "allowElevation": false
+    },
+    "linux": {
+      "icon": "icon.png",
+      "category": "Utility",
+      "target": [
+        "AppImage"
+      ]
+    },
+    "mac": {
+      "icon": "icon.png",
+      "type": "development",
+      "category": "public.app-category.developer-tools",
+      "target": [
+        "dmg"
+      ]
+    }
   }
 }

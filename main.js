@@ -6,27 +6,30 @@ const {
 const electron = require('electron');
 const dialog = electron.dialog;
 const globalShortcut = electron.globalShortcut;
-
+const ipcMain = require('electron').ipcMain;
 
 
 function createWindow() {
     // 创建浏览器窗口
     const win = new BrowserWindow({
-        width: 800,
-        height: 600,
+        width: 400,
+        height: 768,
         webPreferences: {
             nodeIntegration: true
         }
     });
     // 并且为你的应用加载index.html
-    // win.loadFile('index.html');
+    win.loadFile('index.html');
 
-    win.maximize();
+    win.setHasShadow(true);
+    win.setPosition(100, 100);
 
-    win.loadURL("https://www.icloud.com/notes/");
+    // win.maximize();
+
+    // win.loadURL("https://www.icloud.com/notes/");
 
     // 打开开发者工具
-    win.webContents.openDevTools()
+    // win.webContents.openDevTools()
 }
 
 // This method will be called when Electron has finished
@@ -59,7 +62,8 @@ app.on('ready', function () {
             message: '成功!',
             detail: '你按下了一个全局注册的快捷键绑定.',
             buttons: ['好的']
-        })
+        });
+
     })
 });
 
@@ -69,3 +73,75 @@ app.on('will-quit', function () {
 
 // In this file you can include the rest of your app's specific main process
 // code. 也可以拆分成几个文件，然后用 require 导入。
+
+ipcMain.on('asynchronous-message', (event, arg) => {
+
+    if (arg === 'open reminder') {
+        var win = new BrowserWindow({
+            width: 1366,
+            height: 768,
+            webPreferences: {
+                nodeIntegration: true
+            }
+        });
+        win.loadURL("https://www.icloud.com/notes/");
+
+    }
+
+    if (arg === 'open wechat') {
+        var win = new BrowserWindow({
+            width: 1000,
+            height: 1000,
+            webPreferences: {
+                nodeIntegration: true
+            }
+        });
+        win.loadURL("https://wx.qq.com/");
+    }
+
+    if (arg === 'open gxd') {
+        var win = new BrowserWindow({
+            width: 1366,
+            height: 768,
+            webPreferences: {
+                nodeIntegration: true
+            }
+        });
+        win.loadURL("http://guanxiaoda.cn/");
+        win.maximize();
+    }
+    if (arg === 'open office') {
+        var win = new BrowserWindow({
+            width: 1366,
+            height: 768,
+            webPreferences: {
+                nodeIntegration: true
+            }
+        });
+        win.loadURL("https://www.office.com/?auth=1");
+        win.maximize();
+    }
+    if (arg === 'open word') {
+        var win = new BrowserWindow({
+            width: 1366,
+            height: 768,
+            webPreferences: {
+                nodeIntegration: true
+            }
+        });
+        win.loadURL("https://www.office.com/launch/word?auth=1");
+        win.maximize();
+    }
+    if (arg === 'open weread') {
+        var win = new BrowserWindow({
+            width: 1366,
+            height: 768,
+            webPreferences: {
+                nodeIntegration: true
+            }
+        });
+        win.loadURL("https://weread.qq.com/");
+        win.maximize();
+    }
+
+});
